@@ -4,6 +4,7 @@ import com.rentcar.webapp.Exception.InvalidJSONException;
 import com.rentcar.webapp.Exception.MasterException;
 import com.rentcar.webapp.Exception.NoContentException;
 import com.rentcar.webapp.Exception.ServiceException;
+import com.rentcar.webapp.entity.CustomUserDetail;
 import com.rentcar.webapp.entity.User;
 import com.rentcar.webapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService{
 
     @Autowired
     private UserRepository userRepository;
@@ -72,6 +73,17 @@ public class UserService {
         } catch (IllegalStateException | PersistenceException e) {
             throw new ServiceException("Al momento non è possibile soddisfare la richiesta");
         } catch (MasterException e) {
+            throw e;
+        }
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        try {
+            Optional<User> user = userRepository.findByEmail(username);
+            user.orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+            return user.map(CustomUserDetail::new).get();
+        } catch (Exception e) {
             throw e;
         }
     }

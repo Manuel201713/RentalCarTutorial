@@ -3,20 +3,21 @@ package com.rentcar.webapp.controller;
 import com.rentcar.webapp.Exception.MasterException;
 import com.rentcar.webapp.entity.User;
 import com.rentcar.webapp.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 @Controller
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
 
     @RequestMapping(value = "/users", method = RequestMethod.GET)
@@ -30,7 +31,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/users/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody User insertUser(@RequestBody User user, HttpServletResponse response) throws IOException {
+    public @ResponseBody User insertUser(@RequestBody User user, HttpServletResponse response) {
 
         try {
             return userService.create(user);
@@ -40,7 +41,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody User updateUser(@RequestBody User user, HttpServletResponse response) throws IOException {
+    public @ResponseBody User updateUser(@RequestBody User user, HttpServletResponse response) {
 
         try {
             return userService.update(user);
@@ -50,7 +51,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteUser(@RequestBody User user, HttpServletResponse response) throws IOException {
+    public void deleteUser(@RequestBody User user, HttpServletResponse response) {
 
         try {
             userService.delete(user);

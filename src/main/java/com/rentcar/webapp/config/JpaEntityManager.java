@@ -1,16 +1,15 @@
+
 package com.rentcar.webapp.config;
 
 import com.rentcar.webapp.Exception.DBException;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.stereotype.Component;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 @Component
-@EnableJpaRepositories(value = {"com.rentcar.webapp.repository"})
 public class JpaEntityManager {
-	
+
 	private static EntityManagerFactory emfactory = null;
 
 	private JpaEntityManager() {}
@@ -27,4 +26,7 @@ public class JpaEntityManager {
 			throw new DBException("Errore nel caricamento del database");
 		}
 	}
+
 }
+
+

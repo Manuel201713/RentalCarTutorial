@@ -6,7 +6,6 @@
         <setting name="validation-enabled" value="true" />
         <datasource-mapping>
           <factory-entry name="default" />
-          <factory-entry name="entityManagerFactory" />
           <factory-entry name="rentalcardb" />
         </datasource-mapping>
         <naming-strategy-map />

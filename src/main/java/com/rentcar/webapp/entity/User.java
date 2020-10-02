@@ -3,7 +3,6 @@ package com.rentcar.webapp.entity;
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.rentcar.webapp.Utility.Utility;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
@@ -43,8 +42,7 @@ public class User implements Serializable {
     private String fiscalCode;
 
     @Column(name = "admin")
-    @Enumerated(EnumType.ORDINAL)
-    private Stato admin;
+    private Boolean admin;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
@@ -136,13 +134,13 @@ public class User implements Serializable {
         this.fiscalCode = fiscalCode;
     }
 
-    public Stato getAdmin() {
+    public Boolean getAdmin() {
         return admin;
     }
-    public Stato isAdmin() {
+    public Boolean isAdmin() {
         return this.admin;
     }
-    public void setAdmin(Stato admin) {
+    public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
 

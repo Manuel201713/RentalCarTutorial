@@ -14,8 +14,11 @@ import java.util.List;
 @RestController
 public class VehicleController {
 
-    @Autowired
-    private VehicleService vehicleService;
+    private final VehicleService vehicleService;
+
+    public VehicleController(VehicleService vehicleService) {
+        this.vehicleService = vehicleService;
+    }
 
     @RequestMapping(value = "/vehicles", method = RequestMethod.GET)
     public String getUsers(Model model){
@@ -28,7 +31,7 @@ public class VehicleController {
     }
 
     @RequestMapping(value = "/vehicle/add", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public  @ResponseBody Vehicle insertVehicle(@RequestBody Vehicle vehicle, Model model, HttpServletResponse response) throws IOException {
+    public  @ResponseBody Vehicle insertVehicle(@RequestBody Vehicle vehicle, Model model, HttpServletResponse response) {
 
         try {
             return vehicleService.create(vehicle);
@@ -38,7 +41,7 @@ public class VehicleController {
     }
 
     @RequestMapping(value = "/vehicle/update", method = RequestMethod.PUT  , consumes = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody Vehicle updateVehicle(@RequestBody Vehicle vehicle, Model model, HttpServletResponse response) throws IOException {
+    public @ResponseBody Vehicle updateVehicle(@RequestBody Vehicle vehicle, Model model, HttpServletResponse response) {
         try {
             return vehicleService.update(vehicle);
         } catch (RuntimeException e) {
@@ -48,7 +51,7 @@ public class VehicleController {
     }
 
     @RequestMapping(value = "/vehicle/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void deleteVehicle(@RequestBody Vehicle vehicle, Model model, HttpServletResponse response) throws IOException {
+    public void deleteVehicle(@RequestBody Vehicle vehicle, Model model, HttpServletResponse response) {
         try {
 
             vehicleService.delete(vehicle);

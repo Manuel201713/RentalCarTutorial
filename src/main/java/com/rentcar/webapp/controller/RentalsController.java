@@ -49,7 +49,7 @@ public class RentalsController {
         }
     }
 
-    @RequestMapping(value = "/user/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/rental/delete", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
     public void deleteRental(@RequestBody Rentals rental, HttpServletResponse response) throws IOException {
 
         try {
